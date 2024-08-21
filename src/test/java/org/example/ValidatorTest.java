@@ -87,4 +87,23 @@ class ValidatorTest {
         assertFalse(Validator.containsCommonPassword("jkg352g"));
     }
 
+    @Test
+    void password_pwtest123ab_containsNoSpecialCharacters(){
+        assertFalse(Validator.containsSpecialCharacters("pwtest123ab"));
+    }
+    @Test
+    void passwordWithSpecialCharactersActuallyContainsSpecialCharacters(){
+        assertTrue(Validator.containsSpecialCharacters("pwtest123ab="));
+    }
+
+    @Test
+    void passwordWithOnlySpecialCharactersActuallyContainsSpecialCharacters(){
+        assertTrue(Validator.containsSpecialCharacters("?ß!-_.;"));
+    }
+
+    @Test
+    void emptyPasswordContainsNoSpecialCharacters(){
+        assertFalse(Validator.containsSpecialCharacters(""));
+    }
+
 }

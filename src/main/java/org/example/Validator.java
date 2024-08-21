@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validator {
-    private static String[] commonPasswords = {"123456", "admin", "12345678", "123456789", "1234", "password", "Aa123456", "UNKNOWN", "Password", "Admin123", "********", "user"};
+    private final static String[] commonPasswords = {"123456", "admin", "12345678", "123456789", "1234", "password", "Aa123456", "UNKNOWN", "Password", "Admin123", "********", "user"};
 
     public static void main(String[] args) {
     }
@@ -31,6 +31,13 @@ public class Validator {
             }
         }
         return false;
+    }
+
+    public static boolean containsSpecialCharacters(String pw) {
+        // anstatt direkt nach sonderzeichen zu suchen, suchen wir nach zeichen, die weder buchstabe nach zahl sind
+        Pattern pattern = Pattern.compile("[^0-9a-zA.z]");
+        Matcher matcher = pattern.matcher(pw);
+        return matcher.find();
     }
 
 }
