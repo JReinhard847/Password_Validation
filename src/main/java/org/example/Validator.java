@@ -18,9 +18,8 @@ public class Validator {
     }
 
     public static boolean containsUpperAndLowerCase(String pw) {
-        String temp = pw;
         //idee: wenn pw nur kleinbuchstaben enthält, dann ändert pw.toLowerCase() nichts. analog für großbuchstaben
-        return !temp.toUpperCase().equals(pw) && !temp.toLowerCase().equals(pw);
+        return !pw.toUpperCase().equals(pw) && !pw.toLowerCase().equals(pw);
     }
 
 
