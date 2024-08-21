@@ -9,6 +9,22 @@ public class Validator {
     public static void main(String[] args) {
     }
 
+    public static boolean passwordIsSafe(String pw){
+        if(passwordLength(pw)<8){
+            return false;
+        }
+        if(!containsDigits(pw)){
+            return false;
+        }
+        if(!containsUpperAndLowerCase(pw)){
+            return false;
+        }
+        if(!containsSpecialCharacters(pw)){
+            return false;
+        }
+        return !containsCommonPassword(pw);
+    }
+
     public static int passwordLength(String pw) {
         return pw.length();
     }
@@ -35,7 +51,7 @@ public class Validator {
 
     public static boolean containsSpecialCharacters(String pw) {
         // anstatt direkt nach sonderzeichen zu suchen, suchen wir nach zeichen, die weder buchstabe nach zahl sind
-        Pattern pattern = Pattern.compile("[^0-9a-zA.z]");
+        Pattern pattern = Pattern.compile("[^0-9a-z]",Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(pw);
         return matcher.find();
     }

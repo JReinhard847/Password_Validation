@@ -106,4 +106,39 @@ class ValidatorTest {
         assertFalse(Validator.containsSpecialCharacters(""));
     }
 
+    @Test
+    void password_Admin1_isNotSafe(){
+        assertFalse(Validator.passwordIsSafe("Admin1"));
+    }
+
+    @Test
+    void password_xyZ1_isNotSafe(){
+        assertFalse(Validator.passwordIsSafe("xyZ1"));
+    }
+
+    @Test
+    void password_adminQ_isNotSafe(){
+        assertFalse(Validator.passwordIsSafe("admin?"));
+    }
+
+    @Test
+    void password_abcdefgh_isNotSafe(){
+        assertFalse(Validator.passwordIsSafe("abcdefgh"));
+    }
+
+    @Test
+    void password_abcdefgh1_isNotSafe(){
+        assertFalse(Validator.passwordIsSafe("abcdefgh1"));
+    }
+    @Test
+    void password_aBcdefgh1_isNotSafe(){
+        assertFalse(Validator.passwordIsSafe("aBcdefgh1"));
+    }
+
+
+    @Test
+    void password_aBcdefgh1Q_isSafe(){
+        assertTrue(Validator.passwordIsSafe("aBcdefgh1?"));
+    }
+
 }
