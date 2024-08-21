@@ -1,5 +1,6 @@
 package org.example;
 
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -73,72 +74,79 @@ class ValidatorTest {
     }
 
     @Test
-    void password_admin_isCommon(){
+    void password_admin_isCommon() {
         assertTrue(Validator.containsCommonPassword("admin"));
     }
 
     @Test
-    void password_admin1_isCommon(){
+    void password_admin1_isCommon() {
         assertTrue(Validator.containsCommonPassword("admin1"));
     }
 
     @Test
-    void password_jkg352g_isUncommon(){
+    void password_jkg352g_isUncommon() {
         assertFalse(Validator.containsCommonPassword("jkg352g"));
     }
 
     @Test
-    void password_pwtest123ab_containsNoSpecialCharacters(){
+    void password_pwtest123ab_containsNoSpecialCharacters() {
         assertFalse(Validator.containsSpecialCharacters("pwtest123ab"));
     }
+
     @Test
-    void passwordWithSpecialCharactersActuallyContainsSpecialCharacters(){
+    void passwordWithSpecialCharactersActuallyContainsSpecialCharacters() {
         assertTrue(Validator.containsSpecialCharacters("pwtest123ab="));
     }
 
     @Test
-    void passwordWithOnlySpecialCharactersActuallyContainsSpecialCharacters(){
+    void passwordWithOnlySpecialCharactersActuallyContainsSpecialCharacters() {
         assertTrue(Validator.containsSpecialCharacters("?ß!-_.;"));
     }
 
     @Test
-    void emptyPasswordContainsNoSpecialCharacters(){
+    void emptyPasswordContainsNoSpecialCharacters() {
         assertFalse(Validator.containsSpecialCharacters(""));
     }
 
     @Test
-    void password_Admin1_isNotSafe(){
+    void password_Admin1_isNotSafe() {
         assertFalse(Validator.passwordIsSafe("Admin1"));
     }
 
     @Test
-    void password_xyZ1_isNotSafe(){
+    void password_xyZ1_isNotSafe() {
         assertFalse(Validator.passwordIsSafe("xyZ1"));
     }
 
     @Test
-    void password_adminQ_isNotSafe(){
+    void password_adminQ_isNotSafe() {
         assertFalse(Validator.passwordIsSafe("admin?"));
     }
 
     @Test
-    void password_abcdefgh_isNotSafe(){
+    void password_abcdefgh_isNotSafe() {
         assertFalse(Validator.passwordIsSafe("abcdefgh"));
     }
 
     @Test
-    void password_abcdefgh1_isNotSafe(){
+    void password_abcdefgh1_isNotSafe() {
         assertFalse(Validator.passwordIsSafe("abcdefgh1"));
     }
+
     @Test
-    void password_aBcdefgh1_isNotSafe(){
+    void password_aBcdefgh1_isNotSafe() {
         assertFalse(Validator.passwordIsSafe("aBcdefgh1"));
     }
 
 
     @Test
-    void password_aBcdefgh1Q_isSafe(){
+    void password_aBcdefgh1Q_isSafe() {
         assertTrue(Validator.passwordIsSafe("aBcdefgh1?"));
+    }
+
+    @RepeatedTest(50)
+    void checkIfCreatedPasswordIsSafe() {
+        assertTrue(Validator.passwordIsSafe(Validator.createSafePassword()));
     }
 
 }

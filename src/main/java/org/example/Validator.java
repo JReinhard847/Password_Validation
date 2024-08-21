@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,17 +10,17 @@ public class Validator {
     public static void main(String[] args) {
     }
 
-    public static boolean passwordIsSafe(String pw){
-        if(passwordLength(pw)<8){
+    public static boolean passwordIsSafe(String pw) {
+        if (passwordLength(pw) < 8) {
             return false;
         }
-        if(!containsDigits(pw)){
+        if (!containsDigits(pw)) {
             return false;
         }
-        if(!containsUpperAndLowerCase(pw)){
+        if (!containsUpperAndLowerCase(pw)) {
             return false;
         }
-        if(!containsSpecialCharacters(pw)){
+        if (!containsSpecialCharacters(pw)) {
             return false;
         }
         return !containsCommonPassword(pw);
@@ -51,9 +52,52 @@ public class Validator {
 
     public static boolean containsSpecialCharacters(String pw) {
         // anstatt direkt nach sonderzeichen zu suchen, suchen wir nach zeichen, die weder buchstabe nach zahl sind
-        Pattern pattern = Pattern.compile("[^0-9a-z]",Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile("[^0-9a-z]", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(pw);
         return matcher.find();
+    }
+
+    public static String createSafePassword() {
+        int length = new Random().nextInt(8, 16);
+        length = 10;
+        String res = "";
+        //create randomized base string
+        for (int i = 0; i < length; i++) {
+            // all letter/number and special characters correspont to an int within the range of 32 and 126
+            // reference: https://www.cs.cmu.edu/~pattis/15-1XX/common/handouts/ascii.html
+            res += (char) new Random().nextInt(33, 126);
+        }
+        res = ")5m7$r>p4?";
+        //keep track of indices that get changed to fulfill conditions to not change it twice
+        HashSet<Integer> changedIndices = new HashSet<Integer>();
+        int changeIndex = new Random().nextInt(length);
+        changedIndices.add(changeIndex);
+        //change a random indices to a digit
+        int digitToAdd = new Random().nextInt(10);
+        res = res.substring(0, changeIndex) + digitToAdd + res.substring(changeIndex + 1);
+        changedIndices.add(changeIndex);
+        while (changedIndices.contains(changeIndex)) {
+            changeIndex = new Random().nextInt(length);
+        }
+        //add random lowercase letter
+        char letterToAdd = (char) new Random().nextInt(97, 122);
+        res = res.substring(0, changeIndex) + letterToAdd + res.substring(changeIndex + 1);
+        changedIndices.add(changeIndex);
+        while (changedIndices.contains(changeIndex)) {
+            changeIndex = new Random().nextInt(length);
+        }
+        //add random uppercase letter
+        letterToAdd = (char) new Random().nextInt(65, 90);
+        res = res.substring(0, changeIndex) + letterToAdd + res.substring(changeIndex + 1);
+        changedIndices.add(changeIndex);
+        while (changedIndices.contains(changeIndex)) {
+            changeIndex = new Random().nextInt(length);
+        }
+        //add random special character
+        letterToAdd = (char) new Random().nextInt(33, 47);
+        res = res.substring(0, changeIndex) + letterToAdd + res.substring(changeIndex + 1);
+        //dont check for common passwords because the probability is astronomically small
+        return res;
     }
 
 }
