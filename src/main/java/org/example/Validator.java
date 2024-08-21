@@ -59,7 +59,6 @@ public class Validator {
 
     public static String createSafePassword() {
         int length = new Random().nextInt(8, 16);
-        length = 10;
         String res = "";
         //create randomized base string
         for (int i = 0; i < length; i++) {
@@ -67,7 +66,6 @@ public class Validator {
             // reference: https://www.cs.cmu.edu/~pattis/15-1XX/common/handouts/ascii.html
             res += (char) new Random().nextInt(33, 126);
         }
-        res = ")5m7$r>p4?";
         //keep track of indices that get changed to fulfill conditions to not change it twice
         HashSet<Integer> changedIndices = new HashSet<Integer>();
         int changeIndex = new Random().nextInt(length);
