@@ -71,4 +71,20 @@ class ValidatorTest {
     void password_AbC123_containsUpperAndLowerCase() {
         assertTrue(Validator.containsUpperAndLowerCase("AbC123"));
     }
+
+    @Test
+    void password_admin_isCommon(){
+        assertTrue(Validator.containsCommonPassword("admin"));
+    }
+
+    @Test
+    void password_admin1_isCommon(){
+        assertTrue(Validator.containsCommonPassword("admin1"));
+    }
+
+    @Test
+    void password_jkg352g_isUncommon(){
+        assertFalse(Validator.containsCommonPassword("jkg352g"));
+    }
+
 }

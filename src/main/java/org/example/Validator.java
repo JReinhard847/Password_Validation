@@ -4,6 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validator {
+    private static String[] commonPasswords = {"123456", "admin", "12345678", "123456789", "1234", "password", "Aa123456", "UNKNOWN", "Password", "Admin123", "********", "user"};
+
     public static void main(String[] args) {
     }
 
@@ -22,5 +24,13 @@ public class Validator {
         return !pw.toUpperCase().equals(pw) && !pw.toLowerCase().equals(pw);
     }
 
+    public static boolean containsCommonPassword(String pw) {
+        for (String commonPw : commonPasswords) {
+            if (pw.contains(commonPw)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
